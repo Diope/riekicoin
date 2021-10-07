@@ -1,0 +1,7 @@
+{
+  "name": "riekicoin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Dion Pettaway <dionp@fullsail.edu>",
+  "license": "MIT"
+}
