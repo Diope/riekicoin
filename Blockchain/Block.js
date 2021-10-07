@@ -1,6 +1,9 @@
 const SHA384 = require('crypto-js/sha384');
 
 class Block{
+  #timestamp
+  #data
+  #previousHash
   constructor(timestamp = Date.now(), data, previousHash='') {
     this.timestamp = timestamp;
     this.data = data;
@@ -10,6 +13,10 @@ class Block{
 
   calculateHash = () => {
     return SHA384(this.timestamp + this.previousHash + JSON.stringify(this.data)).toString();
+  }
+
+  getPrev () {
+    return this.#previousHash
   }
 }
 
@@ -31,7 +38,7 @@ class Blockchain {
   }
 
   addBlock (newBlock) {
-    newBlock.previousHash = this.getLatestBlock().hash;
+    newBlock.getprev = this.getLatestBlock().hash;
     newBlock.hash = newBlock.calculateHash();
     this.chain.push(newBlock)
   }
