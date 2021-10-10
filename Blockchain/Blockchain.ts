@@ -1,6 +1,11 @@
 const {Block} = require('./Block')
 const {Transaction} = require('./Transaction')
+
 class Blockchain {
+  difficulty: number;
+  chain: any[];
+  pendingTransactions: {fromAddress: string, toAddress: string, amount: number}[];
+  miningReward: number;
   constructor() {
     this.chain = [this.createGenesisBlock()];
     this.difficulty = 2;
@@ -9,7 +14,7 @@ class Blockchain {
   }
 
   
-  createGenesisBlock = () => {
+  createGenesisBlock () {
     return new Block(Date.now(), [], "0");
   }
 

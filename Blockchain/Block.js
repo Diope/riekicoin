@@ -1,6 +1,12 @@
 const SHA384 = require('crypto-js/sha384');
 
 class Block {
+  timestamp: string
+  transactions: {fromAddress: string, toAddress: string, amount: number}
+  previousHash: string
+  hash: string
+  nonce: number
+
   constructor(timestamp, transactions, previousHash='') {
     this.timestamp = timestamp;
     this.transactions = transactions;
@@ -22,4 +28,5 @@ class Block {
   }
 }
 
-module.exports = {Block};
+
+module.exports.Block = Block;
