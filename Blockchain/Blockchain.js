@@ -3,13 +3,14 @@ const {Transaction} = require('./Transaction')
 class Blockchain {
   constructor() {
     this.chain = [this.createGenesisBlock()];
-    this.difficulty = 4;
+    this.difficulty = 2;
     this.pendingTransactions = [];
-    this.miningReward = 400
+    this.miningReward = 30
   }
 
+  
   createGenesisBlock = () => {
-    return new Block(Date.now(), "The beginning of all blocks", "0");
+    return new Block(Date.now(), [], "0");
   }
 
   getLatestBlock = () => {
@@ -23,17 +24,38 @@ class Blockchain {
   // }
 
   minePendingTransactions(miningRewardAddress) {
-    let block = new Block(Date.now(), this.pendingTransactions)
+    
+    const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
     block.mineBlock(this.difficulty);
-
-    console.log('Mined block hash is: ', block.hash)
+    
+    console.log('Mined block successfully')
     this.chain.push(block);
 
-    this.pendingTransactions = [new Transaction(null, this.miningReward, this.miningReward)];
+    this.pendingTransactions = [new Transaction(null, miningRewardAddress, this.miningReward)];
   }
 
   createTransaction(transaction) {
     this.pendingTransactions.push(transaction)
+  }
+
+  // As you don't actually have a balance in the tradition sense, you have to get all the transctions on the blockchain that are from your address.
+
+  // O(n^2) I wonder if this can this be done faster
+  getBalance(address) {
+    let balance = 0;
+
+    for (const block of this.chain) {
+      for (const trans of block.transactions) {
+        if (trans.fromAddress === address) {
+          balance -= trans.amount;
+        }
+
+        if (trans.toAddress === address) {
+          balance += trans.amount
+        }
+      }
+    }
+    return balance;
   }
 
   isChainValid() {
@@ -57,7 +79,17 @@ class Blockchain {
 
 
 let riekiCoin = new Blockchain();
-console.log("Mining block 1....")
-riekiCoin.minePendingTransactions(new Block(Date.now(), {amount: 4399}));
-console.log("Mining block 2....")
-riekiCoin.minePendingTransactions(new Block(Date.now(), {amount: 1889891}));
+
+riekiCoin.createTransaction(new Transaction('firstAdd', 'secondAdd', 12100));
+riekiCoin.createTransaction(new Transaction('secondAdd', 'firstAdd', 325));
+
+console.log('Mining commencing')
+riekiCoin.minePendingTransactions('yungAdd')
+
+console.log('Balance is', riekiCoin.getBalance('yungAdd'))
+
+console.log('Mining commencing')
+riekiCoin.minePendingTransactions('yungAdd')
+
+console.log('Balance is', riekiCoin.getBalance('yungAdd'))
+
