@@ -1,13 +1,13 @@
 const SHA384 = require('crypto-js/sha384');
 
 class Block {
-  timestamp: string
+  timestamp: number;
   transactions: {fromAddress?: string, toAddress?: string, amount?: number}
   previousHash: string
   hash: string
   nonce: number
 
-  constructor(timestamp: string, transactions: {}, previousHash='') {
+  constructor(timestamp: number, transactions: {}, previousHash='') {
     this.timestamp = timestamp;
     this.transactions = transactions;
     this.previousHash = previousHash;

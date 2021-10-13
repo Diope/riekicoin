@@ -1,10 +1,10 @@
-const {Block} = require('./Block')
+import { Block } from "./Block";
 const {Transaction} = require('./Transaction')
 
 class Blockchain {
   difficulty: number;
-  chain: any[];
-  pendingTransactions: {fromAddress: string, toAddress: string, amount: number}[];
+  chain: Block[];
+  pendingTransactions: Array<{fromAddress: string, toAddress: string, amount: number}>;
   miningReward: number;
   constructor() {
     this.chain = [this.createGenesisBlock()];
@@ -18,7 +18,7 @@ class Blockchain {
     return new Block(Date.now(), [], "0");
   }
 
-  getLatestBlock ()  {
+  getLatestBlock () {
     return this.chain[this.chain.length - 1];
   }
 
