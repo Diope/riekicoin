@@ -18,7 +18,7 @@ class Blockchain {
     return new Block(Date.now(), [], "0");
   }
 
-  getLatestBlock (): any[] {
+  getLatestBlock ()  {
     return this.chain[this.chain.length - 1];
   }
 

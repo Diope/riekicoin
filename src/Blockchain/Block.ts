@@ -15,7 +15,7 @@ class Block {
     this.nonce = 0;
   }
 
-  calculateHash (): string {
+  calculateHash = (): string => {
     return SHA384(this.timestamp + this.previousHash + JSON.stringify(this.transactions) + this.nonce).toString();
   }
 
