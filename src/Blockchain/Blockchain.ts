@@ -26,7 +26,6 @@ class Blockchain {
   //   newBlock.previousHash = this.getLatestBlock().hash;
   //   newBlock.mineBlock(this.difficulty);
   //   this.chain.push(newBlock)
-  // }
 
   minePendingTransactions(miningRewardAddress: string): void  {
     
