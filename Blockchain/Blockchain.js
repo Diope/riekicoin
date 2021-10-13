@@ -8,7 +8,6 @@ class Blockchain {
     this.miningReward = 30
   }
 
-  
   createGenesisBlock = () => {
     return new Block(Date.now(), [], "0");
   }
@@ -39,7 +38,7 @@ class Blockchain {
 
   // As you don't actually have a balance in the tradition sense, you have to get all the transctions on the blockchain that are from your address.
 
-  // O(n^2) I wonder if this can this be done faster
+  // O(n^2) I wonder if this can this be done faster? 
   getBalance(address) {
     let balance = 0;
 
