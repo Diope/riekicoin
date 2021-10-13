@@ -1,7 +1,13 @@
 const SHA384 = require('crypto-js/sha384');
 
 class Block {
-  constructor(timestamp, transactions, previousHash='') {
+  timestamp: number;
+  transactions: {fromAddress?: string, toAddress?: string, amount?: number}
+  previousHash: string
+  hash: string
+  nonce: number
+
+  constructor(timestamp: number, transactions: {}, previousHash='') {
     this.timestamp = timestamp;
     this.transactions = transactions;
     this.previousHash = previousHash;
@@ -9,11 +15,11 @@ class Block {
     this.nonce = 0;
   }
 
-  calculateHash = () => {
+  calculateHash = (): string => {
     return SHA384(this.timestamp + this.previousHash + JSON.stringify(this.transactions) + this.nonce).toString();
   }
 
-  mineBlock(difficulty) {
+  mineBlock(difficulty: number): void {
     while(this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
       this.nonce++;
       this.hash = this.calculateHash();
@@ -22,4 +28,5 @@ class Block {
   }
 }
 
-module.exports = {Block};
+
+export {Block}
